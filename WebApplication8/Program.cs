@@ -3,7 +3,9 @@ using WebApplication8.Services.EmailService;
 using SendGrid.Extensions.DependencyInjection;
 using WebApplication8.Services.EmailService;
 using WebApplication8.Services.SmsService;
-using Mvc101.Services.EmailService;
+using WebApplication8.Services.EmailService;
+using WebApplication8.Services.SmsService;
+using Mvc101.Services.SmsService;
 
 var builder = WebApplication.CreateBuilder(args);
 

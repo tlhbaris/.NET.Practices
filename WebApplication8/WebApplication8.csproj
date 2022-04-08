@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\files\images.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SendGrid.Extensions.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
 
