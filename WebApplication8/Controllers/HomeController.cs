@@ -31,12 +31,12 @@ namespace MVC101.Controllers
                     new EmailModels()
                     {
                         Name ="Wissen",
-                        Adress = "akcaymert603@gmail.com"
+                        Adress = "fonece1702@nuesond.com"
                     },
                     new EmailModels()
                     {
                         Name ="Serkan",
-                        Adress = "srknozsoz@gmail.com"
+                        Adress = "fonece1702@nuesond.com"
                     }
                 },
                 Subject = "Ah be Serkanım be ahh....",

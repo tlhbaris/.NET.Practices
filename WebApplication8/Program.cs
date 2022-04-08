@@ -1,5 +1,5 @@
 
-using Mvc101.Services.EmailService;
+using WebApplication8.Services.EmailService;
 using SendGrid.Extensions.DependencyInjection;
 using WebApplication8.Services.EmailService;
 using WebApplication8.Services.SmsService;
@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ISmsService, WissenSmsService>();
 builder.Services.AddSendGrid(options =>
 {
-    options.ApiKey = "API_KEY";
+    options.ApiKey = "Api-Key";
 });
 builder.Services.AddScoped<IEmailServices, SendGridEmailService>();
 
