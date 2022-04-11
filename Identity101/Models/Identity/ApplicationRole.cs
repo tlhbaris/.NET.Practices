@@ -6,7 +6,7 @@ namespace Identity101.Models.Identity
     {
         public string Description { get; set; }
 
-        public ApplicationRole() : base()
+        public ApplicationRole() 
         {
         }
         public ApplicationRole(string roleName, string description)
