@@ -1,4 +1,9 @@
+using Identity101.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+var con1 = builder.Configuration.GetConnectionString("con1");
+builder.Services.AddDbContext<MyContext>(optionsAction: options => options.UseSqlServer(con1));
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
