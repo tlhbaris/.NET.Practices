@@ -1,4 +1,5 @@
 ﻿using Identity101.Models.Identity;
+using Identity101.Services.Email;
 using Identity101.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace Identity101.Controllers;
 public class AccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly EmailService _emailServices;
 
     public AccountController(UserManager<ApplicationUser> userManager)
     {
@@ -18,11 +20,6 @@ public class AccountController : Controller
     public IActionResult Register()
     {
         return View();
-    }
-
-    public UserManager<ApplicationUser> Get_userManager()
-    {
-        return _userManager;
     }
 
     [HttpPost]
@@ -52,10 +49,5 @@ public class AccountController : Controller
         var messages = string.Join("\n", result.Errors.Select(x => x.Description));
         ModelState.AddModelError(string.Empty, messages);
         return View(model);
-    }
-
-    public IActionResult Login()
-    {
-        return View();
     }
 }
