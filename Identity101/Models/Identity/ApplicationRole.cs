@@ -4,7 +4,7 @@ namespace Identity101.Models.Identity
 {
     public class ApplicationRole : IdentityRole
     {
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public ApplicationRole() 
         {
