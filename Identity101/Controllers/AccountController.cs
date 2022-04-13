@@ -172,4 +172,44 @@ public class AccountController : Controller
     {
         return View();
     }
+    public IActionResult ResetPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+        {
+            ViewBag.Message = "Mailinize Şifre güncelleme yönergemiz gönderilmiştir";
+        }
+        else
+        {
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Action("ConfirmResetPassword", "Account", new { userId = user.Id, code = code },
+                protocol: Request.Scheme);
+
+            var emailMessage = new MailModel()
+            {
+                To = new List<EmailModel>
+                {
+                    new EmailModel()
+                        { Adress = user.Email, Name = user.UserName }
+                },
+                Body =
+                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                Subject = "Reset Password"
+            };
+
+            await _emailService.SendMailAsync(emailMessage);
+
+            ViewBag.Message = "Mailinize Şifre güncelleme yönergemiz gönderilmiştir";
+        }
+
+        return View();
+    }
 }

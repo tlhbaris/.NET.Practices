@@ -41,7 +41,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-builder.Services.AddTransient<EmailService,OutlookEmailService>();
+builder.Services.AddTransient<EmailService,SmtpEmailService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
