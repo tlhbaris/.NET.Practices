@@ -5,6 +5,7 @@ using Identity101.Models.Identity;
 using Identity101.Models.Role;
 using Identity101.Services.Email;
 using Identity101.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -165,7 +166,7 @@ public class AccountController : Controller
     }
     public async Task<IActionResult> Logout()
     {
-        await _signInManager .SignOutAsync();
+        await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }
     public IActionResult AccessDenied()
@@ -212,4 +213,93 @@ public class AccountController : Controller
 
         return View();
     }
+
+    [HttpGet]
+    public IActionResult ConfirmResetPassword(string userId, string code)
+    {
+        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
+        {
+            return BadRequest("Hatalı istek");
+        }
+        ViewBag.Code = code;
+        ViewBag.UserId = userId;
+        return View();
+    }
+    [HttpPost]
+
+    public async Task<IActionResult> ConfirmResetPassword(ResetPasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var user = await _userManager.FindByIdAsync(model.UserId);
+
+        if (user == null)
+        {
+            ModelState.AddModelError(string.Empty, errorMessage: "Kullanıcı bulunamadı");
+            return View();
+        }
+        var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Code));
+        var result = await _userManager.ResetPasswordAsync(user, token: code, model.NewPassword);
+        if (result.Succeeded)
+        {
+            TempData["Message"] = "Şifre değişikliğiniz gerçekleşmiştir";
+            return View();
+        }
+        else
+        {
+            var message = string.Join("<br>", result.Errors.Select(x => x.Description));
+            TempData["Message"] = message;
+            return View();
+        }
+
+
+
+    }
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> Profile()
+
+    {
+        var user = await _userManager.FindByNameAsync(HttpContext.User.Identity!.Name);
+
+        var model = new UserProfileViewModel()
+        {
+            Email = user.Email,
+            Name = user.Name,
+            Surname = user.Surname
+        };
+        return View(model);
+    }
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> Profile(UserProfileViewModel model) 
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+        var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+        user.Name = model.Name;
+        user.Surname = model.Surname;
+        user.Email = model.Email;
+
+        var result = await _userManager.UpdateAsync(user);
+        if (result.Succeeded)
+        {
+            ViewBag.Message = "Güncelleme başarılı";
+        }
+        else
+        {
+            var message = string.Join("<br>", result.Errors.Select(x => x.Description));
+            ViewBag.Message = message;  
+        }
+        return View(model);
+        
+
+
+    }
+
 }
+
+

@@ -55,7 +55,7 @@ public class SmtpEmailService : EmailService
         mail.Subject = model.Subject;
         mail.Body = model.Body;
 
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
         var smtpClient = new SmtpClient(this.EmailSettings.Smtp, this.EmailSettings.SmtpPort)
         {
