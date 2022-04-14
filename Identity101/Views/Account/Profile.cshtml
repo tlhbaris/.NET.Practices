@@ -1,5 +1,4 @@
-﻿@using Identity101.ViewModels
-@model UserProfileViewModel
+﻿@model Identity101.ViewModels.UserProfileViewModel
 @{
     Layout = null;
 }
@@ -10,7 +9,7 @@
     <title>@Model.Name @Model.Surname Profile</title>
 </head>
 <body>
-    <div>
+    
         <h2>@ViewBag.Message</h2>
         <form asp-controller="Account" asp-action="Profile">
              <label asp-for="Email"></label>
@@ -24,7 +23,7 @@
              <span asp-validation-for="Surname"></span><br>
              <input type="submit" value="Güncelle"/>
         </form>
-    </div>
+    
     
 </body>
 </html>
