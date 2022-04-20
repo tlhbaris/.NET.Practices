@@ -1,8 +1,8 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
-using AdminTemplate.Models;
 using AdminTemplate.Models.Configuration;
+using AdminTemplate.Models.Email;
 
 namespace AdminTemplate.Services.Email;
 

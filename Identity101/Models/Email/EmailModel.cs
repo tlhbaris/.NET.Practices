@@ -1,8 +1,7 @@
-﻿namespace Identity101.Models
+namespace Identity101.Models.Email;
+
+public class EmailModel
 {
-    public class EmailModel
-    {
-        public string Adress { get; set; }
-        public string Name { get; set; }
-    }
+    public string Adress { get; set; }
+    public string Name { get; set; }
 }

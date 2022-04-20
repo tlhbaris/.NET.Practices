@@ -1,4 +1,4 @@
-﻿using AdminTemplate.Models;
+using AdminTemplate.Models.Email;
 
 namespace AdminTemplate.Services.Email;
 

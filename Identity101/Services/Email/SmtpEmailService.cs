@@ -1,12 +1,12 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
-using Identity101.Models;
 using Identity101.Models.Configuration;
+using Identity101.Models.Email;
 
 namespace Identity101.Services.Email;
 
-public class SmtpEmailService : EmailService
+public class SmtpEmailService : IEmailService
 {
     private readonly IConfiguration _configuration;
 
@@ -55,7 +55,7 @@ public class SmtpEmailService : EmailService
         mail.Subject = model.Subject;
         mail.Body = model.Body;
 
-        //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
         var smtpClient = new SmtpClient(this.EmailSettings.Smtp, this.EmailSettings.SmtpPort)
         {

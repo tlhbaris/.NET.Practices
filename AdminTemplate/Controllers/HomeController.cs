@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AdminTemplate.Controllers
+namespace AdminTemplate.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    // GET
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View();
     }
 }

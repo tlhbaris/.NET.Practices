@@ -1,33 +1,30 @@
-﻿using Identity101.Models.Identity;
+using Identity101.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity101.Data
+namespace Identity101.Data;
+
+public sealed class MyContext : IdentityDbContext<ApplicationUser,ApplicationRole, string>
 {
-    public class MyContext : IdentityDbContext<ApplicationUser,ApplicationRole,string>
+    public MyContext(DbContextOptions options)
+        : base(options)
     {
-        public MyContext(DbContextOptions options) : base(options)
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        //Fluent API
+        builder.Entity<ApplicationUser>(entity =>
         {
+            entity.Property(x => x.Name).HasMaxLength(50).IsRequired(false);
+            entity.Property(x => x.Surname).HasMaxLength(50).IsRequired(false);
+            entity.Property(x => x.RegisterDate).HasColumnType("datetime");
+        });
 
-        }
-        protected override void OnModelCreating(ModelBuilder builder)
+        builder.Entity<ApplicationRole>(entity =>
         {
-            base.OnModelCreating(builder);
-            builder.Entity<ApplicationUser>(entity =>
-            {
-                entity.Property(X => X.Name).HasMaxLength(50).IsRequired(false);
-                entity.Property(X => X.Surname).HasMaxLength(50).IsRequired(false);
-                entity.Property(X => X.RegisterDate).HasColumnType("datetime");
-
-            });
-
-            builder.Entity<ApplicationRole>(entity =>
-            {
-                entity.Property(x => x.Description).HasMaxLength(50).IsRequired(false);
-            });
-
-        }
-
-
+            entity.Property(x => x.Description).HasMaxLength(120).IsRequired(false);
+        });
     }
 }

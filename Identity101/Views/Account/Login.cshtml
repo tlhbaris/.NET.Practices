@@ -1,7 +1,9 @@
-﻿@model Identity101.ViewModels.LoginViewModel
+@model LoginViewModel
+
 @{
     Layout = null;
 }
+
 <!DOCTYPE html>
 
 <html>
@@ -9,22 +11,20 @@
     <title>Login</title>
 </head>
 <body>
-    <div>
-        <form asp-controller="Account" asp-action="Login" method="post">
+<div>
+    <form asp-controller="Account" asp-action="Login" method="post">
         <div asp-validation-summary="ModelOnly"></div>
-        <label asp-for="UserName "></label>
-        <input asp-for="UserName" />
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName"/>
         <span asp-validation-for="UserName"></span><br>
-        <label asp-for="Password "></label>
-        <input asp-for="Password" />
+        <label asp-for="Password"></label>
+        <input asp-for="Password"/>
         <span asp-validation-for="Password"></span><br>
-        <label asp-for="RememberMe "></label>
-        <input asp-for="RememberMe" />
+        <label asp-for="RememberMe"></label>
+        <input asp-for="RememberMe"/>
         <span asp-validation-for="RememberMe"></span><br>
-        <input type="submit" value="Giriş"></input>
+        <input type="submit" value="Giriş"/>
     </form>
-
-    </div>
-    
+</div>
 </body>
 </html>

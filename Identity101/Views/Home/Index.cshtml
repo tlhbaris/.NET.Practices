@@ -1,4 +1,4 @@
-﻿@using Identity101.Models.Role
+@using Identity101.Models.Role
 @{
     Layout = null;
 }
@@ -8,24 +8,22 @@
     <title>Ana Sayfa</title>
 </head>
 <body>
-    <div>
-        <h1>Hoşgeldiniz</h1>
-        @if(Context.User.Identity!.IsAuthenticated)
+<div>
+    <h1>Hoşgeldiniz</h1>
+    @if (Context.User.Identity!.IsAuthenticated)
+    {
+        if (Context.User.IsInRole(Roles.Admin))
         {
-            if (Context.User.IsInRole(Roles.Admin))
-            {
-                 <a asp-controller = "Admin" asp-action="Index">Admin Panel</a>
-            }
-            <br/>
-
-            <a asp-controller = "Account" asp-action="Logout">Çıkış Yap</a>
+            <a asp-controller="Admin" asp-action="Index">Admin Panel</a>
         }
-        else
-        {
-            <a asp-controller = "Account" asp-action="Login">Giriş Yap</a>
-            <a asp-controller="Account" asp-action = "ResetPassword"> Şifremi Unuttum </a>
-        }
-        
-    </div>    
+        <br/>
+        <a asp-controller="Account" asp-action="Logout">Çıkış Yap</a>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login">Giriş Yap</a><br/>
+        <a asp-controller="Account" asp-action="ResetPassword">Şifremi unuttum</a> 
+    }
+</div>
 </body>
 </html>

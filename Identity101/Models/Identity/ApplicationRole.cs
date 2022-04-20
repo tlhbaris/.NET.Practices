@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
-namespace Identity101.Models.Identity
+namespace Identity101.Models.Identity;
+
+public class ApplicationRole : IdentityRole
 {
-    public class ApplicationRole : IdentityRole
-    {
-        public string? Description { get; set; }
+    public string? Description { get; set; }
 
-        public ApplicationRole() 
-        {
-        }
-        public ApplicationRole(string roleName, string description)
+    public ApplicationRole()
+    {
+    }
+
+    public ApplicationRole(string roleName, string description)
         : base(roleName)
-        {
-            this.Description = description;
-        }
+    {
+        this.Description = description;
     }
 }
