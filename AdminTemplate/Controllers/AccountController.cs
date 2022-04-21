@@ -132,18 +132,20 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
+        var abc = ModelState.IsValid;
+        Console.WriteLine();
         if (!ModelState.IsValid)
         {
             return View(model);
         }
 
-        var user = await _userManager.FindByNameAsync(model.UserName);
+      
 
-        var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, true);
-
+        var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+        var a = result.Succeeded;
         if (result.Succeeded)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Profile", "Account");
         }
         else if (result.IsLockedOut)
         {

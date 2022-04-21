@@ -8,9 +8,9 @@
 
     <ItemGroup>
 		
-        <Folder Include="Pages\" />
+        
 		
-        <Folder Include="Pages" />
+        
         <Folder Include="wwwroot\assets" />
     </ItemGroup>
 

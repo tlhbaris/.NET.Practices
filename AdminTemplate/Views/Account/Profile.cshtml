@@ -1,0 +1,56 @@
+﻿@model UserProfileViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <h4 class="page-title">Profile</h4>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+    </ol>
+</div>
+<div class="row" id="user-profile">
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <div class="card clearfix">
+            <div class="card-header">
+                <h2 class="card-title">User info</h2>
+            </div>
+            <div class="card-body">
+                <div class="row profile-user-info">
+                    <div class="col-lg-12">
+                        <div class="table-responsive border ">
+                            <table class="table row table-borderless w-100 m-0 ">
+                                <tbody class="col-lg-12 p-0">
+                                    <tr>
+                                        <td><strong>Full Name :</strong>@Model.Name @Model.Surname</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Location :</strong> Turkey</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Languages :</strong> English, Turkish, Spanish.</td>
+                                    </tr>
+                                </tbody>
+                                <tbody class="col-lg-6 p-0">
+                                    <tr>
+                                        <td><strong>Website :</strong> adminor.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email :</strong>@Model.Email</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Phone :</strong> +125 254 3562 </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
