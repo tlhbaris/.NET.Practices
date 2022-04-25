@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminTemplate.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220420085129_init")]
-    partial class init
+    [Migration("20220425071218_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,7 +66,7 @@ namespace AdminTemplate.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e308e488-5550-4d86-9f4d-2764300abd6c"));
+                        .HasDefaultValue(new Guid("e7b67bff-2383-4651-9e35-b0944ff5f6dd"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");

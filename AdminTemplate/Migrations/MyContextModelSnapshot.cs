@@ -64,7 +64,7 @@ namespace AdminTemplate.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e308e488-5550-4d86-9f4d-2764300abd6c"));
+                        .HasDefaultValue(new Guid("e7b67bff-2383-4651-9e35-b0944ff5f6dd"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
