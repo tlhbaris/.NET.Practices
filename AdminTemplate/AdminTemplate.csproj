@@ -8,9 +8,13 @@
 
     <ItemGroup>
       <Compile Remove="Pages\**" />
+      <Compile Remove="Views\Shared\NewFolder\**" />
       <Content Remove="Pages\**" />
+      <Content Remove="Views\Shared\NewFolder\**" />
       <EmbeddedResource Remove="Pages\**" />
+      <EmbeddedResource Remove="Views\Shared\NewFolder\**" />
       <None Remove="Pages\**" />
+      <None Remove="Views\Shared\NewFolder\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,12 +25,13 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
 </Project>
