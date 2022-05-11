@@ -139,6 +139,7 @@
                 $("#cardUpdateCategory").slideUp(750);
                 $("#formUpdateCategory").trigger("reset");
                 $("#cardListCategory").attr("class", "col-md-12");
+                GetCategories();
             }).fail(error => {
                 toastr["error"]("Kategori Ekleme", error.responseJSON.message);
             });

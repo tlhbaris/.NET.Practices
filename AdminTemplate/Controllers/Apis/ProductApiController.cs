@@ -2,6 +2,7 @@
 using AdminTemplate.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminTemplate.Controllers.Apis
 {
@@ -18,11 +19,11 @@ namespace AdminTemplate.Controllers.Apis
         [HttpGet]
         public IActionResult All()
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products.Include(x => x.Category).ToList();
             return Ok(products);
         }
 
-        [HttpGet("{id:Guid}")]
+        [HttpGet]
         public IActionResult Detail(Guid id)
         {
             var product = _context.Products.Find(id);
@@ -34,6 +35,7 @@ namespace AdminTemplate.Controllers.Apis
         {
             try
             {
+                model.CreatedUser = HttpContext.User.Identity!.Name;
                 _context.Products.Add(model);
                 _context.SaveChanges();
                 return Ok(new
@@ -52,7 +54,7 @@ namespace AdminTemplate.Controllers.Apis
             }
         }
 
-        [HttpPut("{id:Guid}")]
+        [HttpPut]
         public IActionResult Update(Guid id, Product model)
         {
             try
@@ -62,7 +64,8 @@ namespace AdminTemplate.Controllers.Apis
                 {
                     return NotFound(new { Success = false, Message = "Ürün bulunamadı" });
                 }
-
+                model.UpdatedUser = HttpContext.User.Identity!.Name;
+                model.UpdatedDate = DateTime.UtcNow;
                 product.Name = model.Name;
                 product.UnitPrice = model.UnitPrice;
                 product.CategoryId = model.CategoryId;
@@ -83,7 +86,7 @@ namespace AdminTemplate.Controllers.Apis
             }
         }
 
-        [HttpDelete("{id:Guid}")]
+        [HttpDelete]
         public IActionResult Delete(Guid id)
         {
             try
