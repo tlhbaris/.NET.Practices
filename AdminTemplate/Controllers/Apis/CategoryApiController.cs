@@ -1,6 +1,7 @@
-﻿using AdminTemplate.Data;
+﻿using AdminTemplate.BusinessLogic.Repository.Abstracts;
+using AdminTemplate.Dtos;
 using AdminTemplate.Models.Entities;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminTemplate.Controllers.Apis
@@ -9,11 +10,13 @@ namespace AdminTemplate.Controllers.Apis
     [ApiController]
     public class CategoryApiController : BaseApiController
     {
-        private readonly MyContext _context;
+        private readonly IMapper _mapper;
+        private readonly IRepository<Category, int> _categoryRepo;
 
-        public CategoryApiController(MyContext context)
+        public CategoryApiController(IMapper mapper, IRepository<Category, int> categoryRepo)
         {
-            _context = context;
+            _mapper = mapper;
+            _categoryRepo = categoryRepo;
         }
         //CRUD -- Create Read Update Delete
 
@@ -27,7 +30,17 @@ namespace AdminTemplate.Controllers.Apis
         {
             try
             {
-                return Ok(_context.Categories.ToList());
+                //var data = _context.Categories
+                //    //.Include(x => x.Products)
+                //    .ToList()
+                //    .Select(x => _mapper.Map<CategoryDto>(x))
+                //    .ToList();
+
+                var data = _categoryRepo.Get()
+                    .ToList()
+                    .Select(x => _mapper.Map<CategoryDto>(x));
+
+                return Ok(data);
             }
             catch (Exception ex)
             {
@@ -36,13 +49,21 @@ namespace AdminTemplate.Controllers.Apis
         }
 
         [HttpPost]
-        public IActionResult Add(Category model)
+        public IActionResult Add(CategoryDto model)
         {
             try
             {
-                model.CreatedUser = HttpContext.User.Identity!.Name;
-                _context.Categories.Add(model);
-                _context.SaveChanges();
+                var data = _mapper.Map<Category>(model);
+                //var data = new Category()
+                //{
+                //    Name = model.Name,
+                //    Description = model.Description,
+                //    CreatedUser = HttpContext.User.Identity!.Name
+                //};
+                data.CreatedUser = HttpContext.User.Identity!.Name;
+                //_context.Categories.Add(data);
+                //_context.SaveChanges();
+                _categoryRepo.Insert(data);
                 return Ok(new
                 {
                     Success = true,
@@ -60,7 +81,20 @@ namespace AdminTemplate.Controllers.Apis
         {
             try
             {
-                return Ok(_context.Categories.Find(id));
+                //var data = _context.Categories.Find(id);
+                var data = _categoryRepo.GetById(id);
+                if (data == null)
+                {
+                    return NotFound(new { Message = $"{id} numaralı kategori bulunamadı" });
+                }
+                var model = _mapper.Map<CategoryDto>(data);
+                //var model = new CategoryDto()
+                //{
+                //    Id = data.Id,
+                //    Description = data.Description,
+                //    Name = data.Name
+                //};
+                return Ok(model);
             }
             catch (Exception ex)
             {
@@ -69,22 +103,24 @@ namespace AdminTemplate.Controllers.Apis
         }
 
         [HttpPut]
-        public IActionResult Update(int id, Category model)
+        public IActionResult Update(int id, CategoryDto model)
         {
             try
             {
-                var category = _context.Categories.Find(id);
+                //var category = _context.Categories.Find(id);
+                var category = _categoryRepo.GetById(id);
 
                 if (category == null)
                 {
                     return NotFound(new { Message = $"{id} numaralı kategori bulunamadı" });
                 }
-
                 category.Name = model.Name;
                 category.Description = model.Description;
+                //category = _mapper.Map<Category>(model);
                 category.UpdatedUser = HttpContext.User.Identity!.Name;
                 category.UpdatedDate = DateTime.UtcNow;
-                _context.SaveChanges();
+                //_context.SaveChanges();
+                _categoryRepo.Update(category);
                 return Ok(new
                 {
                     Success = true,
@@ -102,14 +138,17 @@ namespace AdminTemplate.Controllers.Apis
         {
             try
             {
-                var category = _context.Categories.Find(id);
+                //var category = _context.Categories.Find(id);
+                var category = _categoryRepo.GetById(id);
 
                 if (category == null)
                 {
                     return NotFound(new { Message = $"{id} numaralı kategori bulunamadı" });
                 }
-                _context.Categories.Remove(category);
-                _context.SaveChanges();
+                //_context.Categories.Remove(category);
+                //_context.SaveChanges();
+
+                _categoryRepo.Delete(category);
                 return Ok(new
                 {
                     Success = true,

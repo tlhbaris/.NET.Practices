@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdminTemplate.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220425071218_Init")]
+    [Migration("20220513084958_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -66,7 +66,7 @@ namespace AdminTemplate.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e7b67bff-2383-4651-9e35-b0944ff5f6dd"));
+                        .HasDefaultValue(new Guid("8063283c-7a9c-43d6-8d44-f7b9bdf5d0d4"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");

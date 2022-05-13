@@ -163,7 +163,7 @@ public class AccountController : Controller
             //model.ReturnUrl = model.ReturnUrl ?? Url.Action("Index", "Home");
 
             model.ReturnUrl ??= Url.Content("~/");
-
+            
             return LocalRedirect(model.ReturnUrl);
         }
         else if (result.IsLockedOut)
@@ -403,3 +403,4 @@ public class AccountController : Controller
         return RedirectToAction(nameof(Profile));
     }
 }
+
